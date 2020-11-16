@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="variable.css" rel="stylesheet" type="text/css" />
+  
+  <title>leetcode</title>
+</head>
+<body>
+  <div id="root">
+    <div id="target" v-model="target"></div>
+    <input type="text" v-model="inputData">
+    <span style="color: var(--text-color)">span</span>
+  </div>
+  <script src="./attributes.js"></script>
+</body>
+<style>
+  /* 生命变量，变量当前文件或css文件中均可通过var()消费变量 */
+:root {
+  --bg: #fff;
+  --text-color: blue;
+}
+</style>
+
+</html>
