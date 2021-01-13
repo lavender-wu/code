@@ -71,9 +71,10 @@ const deepClone = function (obj, hash = new WeakMap()) {
   */
   let allDesc = Object.getOwnPropertyDescriptors(obj);
 
-  //遍历传入参数所有键的特性 Object.create(proto, source) 传入对象的原型和基础对象（可选）
+  // 遍历传入参数所有键的特性 Object.create(proto, source) 传入对象的原型和基础对象（可选）
+  // 继承原型链
   let cloneObj = Object.create(Object.getPrototypeOf(obj), allDesc);
-  //继承原型链
+  // 设置缓存
   hash.set(obj, cloneObj);
 
   // Reflect.ownKeys 可以获取对象所有属性key(包括可枚举和不可枚举的)
