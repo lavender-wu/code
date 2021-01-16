@@ -65,7 +65,7 @@ const parent4 = {
     return this.name;
   }
 }
-// 创建实例
+// 创建实例 Object.create() 实现的是浅拷贝
 const child4 = Object.create(parent4);
 
 // 5.寄生继承,原型式在父类基础上增加了更多的方法，比如这里的getFriends,缺点：内存共享
@@ -87,7 +87,7 @@ function clone5(parent) {
 const person5 = clone5(parent);
 
 
-// 6.终极版 3 + 5 => 寄生组合继承
+// 6.终极版 3 + 5 => 寄生组合继承（es6的关键词extends采用的是这种方式）
 function clone6(parent, child) {
   // 这里改用 Object.create 就可以减少组合继承中多进行一次构造的过程
   child.prototype = Object.create(parent.prototype);
@@ -103,9 +103,38 @@ function Child6() {
   Parent6.call(this);// 只用一次
   this.age = 18;
 }
+clone6(Parent6, Child6);
 // 子类可以重新定义方法
 Child6.prototype.getAge = function() {
   return this.age;
 }
 // 创建实例
 const person6 = new Child6();
+
+
+// 应用: es6的extends
+class Person {
+  // 构造函数相当于执行this.xx = xxx;
+  constructor(name) {
+    this.name = name
+  }
+  // 原型方法
+  // 即 Person.prototype.getName = function() { }
+  // 下面可以简写为 getName() {...}
+  getName = function () {
+    console.log('Person:', this.name)
+  }
+}
+class Gamer extends Person {
+  constructor(name, age) {
+    // 子类中存在构造函数，则需要在使用“this”之前首先调用 super()。
+    super(name)
+    this.age = age
+  }
+  // 子类新增的原型方法
+  getAge = function () {
+    return this.age
+  }
+}
+const asuna = new Gamer('Asuna', 20)
+asuna.getName() // 成功访问到父类的方法
